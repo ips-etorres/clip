@@ -13,9 +13,67 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
     <script type="text/javascript">
+
+      var catalog;
+
       $(document).ready(function () {
         $('#main_content').headsmart()
+
+          $.ajax({
+              type: "GET",
+              url: "file.txt",
+              dataType: "text",
+              success: function(data) {processData(data);}
+          });
+
       })
+
+      // build HTML table data from an array (one or two dimensional)
+      function generateTable(data) {
+          var html = '';
+
+          if(typeof(data[0]) === 'undefined') {
+              return null;
+          }
+
+          if(data[0].constructor === String) {
+              html += '<tr>\r\n';
+              for(var item in data) {
+                  html += '<td>' + data[item] + '</td>\r\n';
+              }
+              html += '</tr>\r\n';
+          }
+
+          if(data[0].constructor === Array) {
+              for(var row in data) {
+                  html += '<tr>\r\n';
+                  for(var item in data[row]) {
+                      html += '<td>' + data[row][item] + '</td>\r\n';
+                  }
+                  html += '</tr>\r\n';
+              }
+          }
+
+          if(data[0].constructor === Object) {
+              for(var row in data) {
+                  html += '<tr>\r\n';
+                  for(var item in data[row]) {
+                      html += '<td>' + item + ':' + data[row][item] + '</td>\r\n';
+                  }
+                  html += '</tr>\r\n';
+              }
+          }
+
+          return html;
+      }
+
+      function processData(allText) {
+
+          $('#dataTable').empty();
+          $('#dataTable').html(allText);
+
+      }
+
     </script>
     <title>CLIP</title>
   </head>
@@ -37,7 +95,7 @@
 
       <section id="downloads">
         <span class="inner">
-          <a href="https://www.facebook.com/groups/1409295915953550/" class="zip"><em>Visitar</em>Facebook</a><a href="http://www.ipointsystems.com/" class="tgz"><em>Visitar</em>Inflection Point</a>
+          <a href="https://www.facebook.com/groups/1409295915953550/" class="zip"><em>Visitar</em>Facebook</a><a href="https://www.facebook.com/media/set/?set=oa.1469176859965455&type=1" class="tgz"><em>Visitar</em>Acervo</a>
         </span>
       </section>
 
@@ -54,13 +112,9 @@
 <h3>
 <a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Cátalogo</h3>
 
-          <center>
-              <p>Próximamente</p>
-          </center>
+          <div class=result id="dataTable">
 
-<br>
-<br>
-
+          </div>
 
       </section>
 

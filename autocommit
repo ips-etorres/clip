@@ -1,7 +1,6 @@
 #!/bin/bash
 java -jar Biblioteca.jar
 
-TIME=$(date +%T)
-DATE=$(date +%D)
-echo $DATE $TIME
+git add file.txt
+git commit -m 'Updating Catalog'
  

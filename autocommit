@@ -3,4 +3,5 @@ java -jar Biblioteca.jar
 
 git add file.txt
 git commit -m 'Updating Catalog'
+git push
  

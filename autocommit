@@ -1,4 +1,6 @@
 #!/bin/bash
+java -jar Biblioteca.jar
+
 TIME=$(date +%T)
 DATE=$(date +%D)
 echo $DATE $TIME
